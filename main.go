@@ -63,15 +63,14 @@ func main() {
 
 	readFileButton, _ := root.SelectById("read_file_button")
 
-	outputTextField, errOutputTextField := root.SelectById("output_text")
-	if errOutputTextField != nil {
-		log.Fatal("failed to bound output 1 ", errOutputTextField.Error())
-	}
-
 	readFileButton.OnClick(func() {
-		input1 := readInputPath(root)
-		output := readFile(input1)
-		_ = outputTextField.SetText(fmt.Sprint(output))
+		inputPath := readInputPath(root)
+		inputFileContent := readFile(inputPath)
+
+		outputFileContent := translate(inputFileContent)
+		outputFileName := markdownToHtmlName(inputPath)
+
+		saveFile(outputFileName, outputFileContent)
 	})
 
 	w.Show()

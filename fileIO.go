@@ -14,3 +14,11 @@ func readFile(path string) string {
 	return string(data)
 
 }
+
+func saveFile(name string, content string) {
+	message := []byte(content)
+	err := ioutil.WriteFile("result/"+name, message, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
