@@ -1,0 +1,3 @@
+event click $(#exit){
+    view.closeWindow()
+}

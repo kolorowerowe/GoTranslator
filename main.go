@@ -6,6 +6,7 @@ import (
 	"github.com/sciter-sdk/go-sciter/window"
 	"log"
 	"path/filepath"
+	"syscall"
 )
 
 var root *sciter.Element
@@ -13,9 +14,12 @@ var rootSelectorErr error
 var w *window.Window
 var windowErr error
 
+const WindowWidth = 800
+const WindowHeight = 450
+
 func init() {
 
-	rect := sciter.NewRect(0, 100, 300, 350)
+	rect := sciter.NewRect(50, 100, WindowWidth, WindowHeight)
 	w, windowErr = window.New(sciter.SW_TITLEBAR|
 		sciter.SW_CONTROLS|
 		sciter.SW_MAIN|
@@ -27,7 +31,7 @@ func init() {
 		return
 	}
 
-	htmlPath, err := filepath.Abs("template.html")
+	htmlPath, err := filepath.Abs("translatorView.html")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -43,7 +47,16 @@ func init() {
 		fmt.Println("Can not select root element")
 		return
 	}
+
+	// registering methods
+	w.DefineFunction("closeWindow", closeApplication)
+
 	w.SetTitle("GoTranslator")
+}
+
+func closeApplication(vals ...*sciter.Value) *sciter.Value {
+	syscall.Exit(0)
+	return nil
 }
 
 func main() {
