@@ -5,9 +5,9 @@ import (
 	"log"
 )
 
-func readInput1(root *sciter.Element) int {
+func readInputPath(root *sciter.Element) string {
 
-	in1, errin1 := root.SelectById("input1")
+	in1, errin1 := root.SelectById("input_path")
 	if errin1 != nil {
 		log.Fatal("failed to bound input 1 ", errin1.Error())
 	}
@@ -17,5 +17,5 @@ func readInput1(root *sciter.Element) int {
 		log.Fatal(errv1.Error())
 	}
 
-	return in1val.Int()
+	return in1val.String()
 }

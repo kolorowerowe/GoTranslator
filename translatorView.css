@@ -17,6 +17,11 @@ body{
 #container{
     padding: 10px;
 }
+
+#output_text{
+    margin: 10px;
+    width: 750px;
+}
 #exit{
     position: fixed;
     bottom: 10px;

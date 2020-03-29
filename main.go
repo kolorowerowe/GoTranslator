@@ -61,17 +61,17 @@ func closeApplication(vals ...*sciter.Value) *sciter.Value {
 
 func main() {
 
-	addbutton, _ := root.SelectById("add")
+	readFileButton, _ := root.SelectById("read_file_button")
 
-	out1, errout1 := root.SelectById("output1")
-	if errout1 != nil {
-		log.Fatal("failed to bound output 1 ", errout1.Error())
+	outputTextField, errOutputTextField := root.SelectById("output_text")
+	if errOutputTextField != nil {
+		log.Fatal("failed to bound output 1 ", errOutputTextField.Error())
 	}
 
-	addbutton.OnClick(func() {
-		input1 := readInput1(root)
-		output := processValue(input1)
-		_ = out1.SetText(fmt.Sprint(output))
+	readFileButton.OnClick(func() {
+		input1 := readInputPath(root)
+		output := readFile(input1)
+		_ = outputTextField.SetText(fmt.Sprint(output))
 	})
 
 	w.Show()
