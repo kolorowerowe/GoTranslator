@@ -71,8 +71,8 @@ func main() {
 		inputFileContent := readFile(inputPath)
 
 		setStatus("TRANSLATING...")
-		outputFileContent := translate(inputFileContent)
 		outputFileName := markdownToHtmlName(inputPath)
+		outputFileContent := translate(inputFileContent, outputFileName)
 
 		setStatus("SAVING...")
 		saveFile(outputFileName, outputFileContent)
