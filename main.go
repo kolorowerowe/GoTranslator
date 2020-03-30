@@ -52,6 +52,8 @@ func init() {
 	w.DefineFunction("closeWindow", closeApplication)
 
 	w.SetTitle("GoTranslator")
+
+	setStatus("READY")
 }
 
 func closeApplication(vals ...*sciter.Value) *sciter.Value {
@@ -64,15 +66,26 @@ func main() {
 	readFileButton, _ := root.SelectById("read_file_button")
 
 	readFileButton.OnClick(func() {
+		setStatus("READING")
 		inputPath := readInputPath(root)
 		inputFileContent := readFile(inputPath)
 
+		setStatus("TRANSLATING...")
 		outputFileContent := translate(inputFileContent)
 		outputFileName := markdownToHtmlName(inputPath)
 
+		setStatus("SAVING...")
 		saveFile(outputFileName, outputFileContent)
+
+		setStatus("DONE")
+
 	})
 
 	w.Show()
 	w.Run()
+}
+
+func setStatus(message string) {
+	statusText, _ := root.SelectById("status_text")
+	_ = statusText.SetText(message)
 }
