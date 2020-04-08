@@ -1,8 +1,10 @@
-package main
+package utils
 
-import "strings"
+import (
+	"strings"
+)
 
-func markdownToHtmlName(inputName string) string {
+func MarkdownToHtmlName(inputName string) string {
 
 	outputName := strings.Replace(inputName, ".MD", ".html", 1)
 	outputName = strings.Replace(outputName, ".md", ".html", 1)

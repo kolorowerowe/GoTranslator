@@ -1,11 +1,11 @@
-package main
+package utils
 
 import (
 	"github.com/sciter-sdk/go-sciter"
 	"log"
 )
 
-func readInputPath(root *sciter.Element) string {
+func ReadInputPath(root *sciter.Element) string {
 
 	in1, errin1 := root.SelectById("input_path")
 	if errin1 != nil {

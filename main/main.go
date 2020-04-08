@@ -1,6 +1,8 @@
 package main
 
 import (
+	"./translator"
+	"./utils"
 	"fmt"
 	"github.com/sciter-sdk/go-sciter"
 	"github.com/sciter-sdk/go-sciter/window"
@@ -9,7 +11,7 @@ import (
 	"syscall"
 )
 
-var root *sciter.Element
+var Root *sciter.Element
 var rootSelectorErr error
 var w *window.Window
 var windowErr error
@@ -31,7 +33,7 @@ func init() {
 		return
 	}
 
-	htmlPath, err := filepath.Abs("translatorView.html")
+	htmlPath, err := filepath.Abs("./frontend/translatorView.html")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -42,9 +44,9 @@ func init() {
 		return
 	}
 
-	root, rootSelectorErr = w.GetRootElement()
+	Root, rootSelectorErr = w.GetRootElement()
 	if rootSelectorErr != nil {
-		fmt.Println("Can not select root element")
+		fmt.Println("Can not select Root element")
 		return
 	}
 
@@ -53,7 +55,7 @@ func init() {
 
 	w.SetTitle("GoTranslator")
 
-	setStatus("READY")
+	SetStatus("READY")
 }
 
 func closeApplication(vals ...*sciter.Value) *sciter.Value {
@@ -63,21 +65,21 @@ func closeApplication(vals ...*sciter.Value) *sciter.Value {
 
 func main() {
 
-	readFileButton, _ := root.SelectById("read_file_button")
+	readFileButton, _ := Root.SelectById("read_file_button")
 
 	readFileButton.OnClick(func() {
-		setStatus("READING")
-		inputPath := readInputPath(root)
-		inputFileContent := readFile(inputPath)
+		SetStatus("READING")
+		inputPath := utils.ReadInputPath(Root)
+		inputFileContent := utils.ReadFile(inputPath)
 
-		setStatus("TRANSLATING...")
-		outputFileName := markdownToHtmlName(inputPath)
-		outputFileContent := translate(inputFileContent, outputFileName)
+		SetStatus("TRANSLATING...")
+		outputFileName := utils.MarkdownToHtmlName(inputPath)
+		outputFileContent := translator.Translate(inputFileContent, outputFileName)
 
-		setStatus("SAVING...")
-		saveFile(outputFileName, outputFileContent)
+		SetStatus("SAVING...")
+		utils.SaveFile(outputFileName, outputFileContent, shouldOpenExplorer())
 
-		setStatus("DONE")
+		SetStatus("DONE")
 
 	})
 
@@ -85,7 +87,13 @@ func main() {
 	w.Run()
 }
 
-func setStatus(message string) {
-	statusText, _ := root.SelectById("status_text")
+func SetStatus(message string) {
+	statusText, _ := Root.SelectById("status_text")
 	_ = statusText.SetText(message)
+}
+
+func shouldOpenExplorer() bool {
+	shouldOpenExplorerCheckbox, _ := Root.SelectById("should_open_explorer_checkbox")
+	value, _ := shouldOpenExplorerCheckbox.GetValue()
+	return value.Bool()
 }

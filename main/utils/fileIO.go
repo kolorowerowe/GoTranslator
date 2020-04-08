@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"io/ioutil"
@@ -7,33 +7,27 @@ import (
 	"os/exec"
 )
 
-func readFile(path string) string {
+func ReadFile(path string) string {
 	data, err := ioutil.ReadFile(path) /* handle error */
 	if err != nil {
 		log.Print("Cannot read file: ", err)
-		setStatus("ERROR: cannot read file")
+		//app.SetStatus("ERROR: cannot read file")
 	}
 	return string(data)
 
 }
 
-func saveFile(name string, content string) {
+func SaveFile(name string, content string, shouldOpenExplorerCheckbox bool) {
 	message := []byte(content)
 	err := ioutil.WriteFile("result/"+name, message, 0644)
 	if err != nil {
 		log.Print("Cannot save file: ", err)
-		setStatus("ERROR: cannot save file")
+		//app.SetStatus("ERROR: cannot save file")
 	}
 
-	if shouldOpenExplorer() {
+	if shouldOpenExplorerCheckbox {
 		path, _ := os.Getwd()
 		_ = exec.Command(`explorer`, `/select,`, path+`\result\`+name).Run()
 	}
 
-}
-
-func shouldOpenExplorer() bool {
-	shouldOpenExplorerCheckbox, _ := root.SelectById("should_open_explorer_checkbox")
-	value, _ := shouldOpenExplorerCheckbox.GetValue()
-	return value.Bool()
 }
