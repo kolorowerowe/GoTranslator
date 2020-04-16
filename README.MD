@@ -1,6 +1,6 @@
-#GoTranslator
+# GoTranslator
 
-##Installation:
+## Installation:
 - Download and install GoLang from https://golang.org/doc/install
 - Install Go-Sciter from https://github.com/sciter-sdk/go-sciter
 - Clone this repository
