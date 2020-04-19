@@ -7,4 +7,4 @@
 - In IntellijIDEA Run configuration set `Run Kind` to `Directory` and `Directory` to `...\GoTranslator\main`
 - Run this configuration
 
-Authors: Dominik Kołodziej & Marek Matys
+__Authors__: Dominik Kołodziej & Marek Matys

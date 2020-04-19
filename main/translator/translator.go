@@ -12,6 +12,7 @@ func Translate(content string, fileName string) string {
 
 	lines = linesProcessing.AddHeaders(lines)
 	lines = linesProcessing.AddInlineCode(lines)
+	lines = linesProcessing.AddEmphasis(lines)
 
 	content = linesToString(lines)
 	content = wrapInHtml(content, fileName)
