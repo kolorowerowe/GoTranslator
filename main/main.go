@@ -77,7 +77,7 @@ func main() {
 		outputFileContent := translator.Translate(inputFileContent, outputFileName)
 
 		SetStatus("SAVING...")
-		utils.SaveFile(outputFileName, outputFileContent, shouldOpenExplorer())
+		utils.SaveFile(outputFileName, outputFileContent, shouldOpenExplorer(), shouldOpenBrowser())
 
 		SetStatus("DONE")
 
@@ -95,5 +95,11 @@ func SetStatus(message string) {
 func shouldOpenExplorer() bool {
 	shouldOpenExplorerCheckbox, _ := Root.SelectById("should_open_explorer_checkbox")
 	value, _ := shouldOpenExplorerCheckbox.GetValue()
+	return value.Bool()
+}
+
+func shouldOpenBrowser() bool {
+	shouldOpenBrowserCheckbox, _ := Root.SelectById("should_open_browser_checkbox")
+	value, _ := shouldOpenBrowserCheckbox.GetValue()
 	return value.Bool()
 }
