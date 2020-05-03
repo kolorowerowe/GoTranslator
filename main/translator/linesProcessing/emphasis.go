@@ -1,6 +1,9 @@
 package linesProcessing
 
-import "regexp"
+import (
+	"../../utils"
+	"regexp"
+)
 
 func AddEmphasis(inputLines []string) (resultLines []string) {
 	regexStrong := regexp.MustCompile(`(__.+?__)|(\*\*.+?\*\*)`)
@@ -8,16 +11,16 @@ func AddEmphasis(inputLines []string) (resultLines []string) {
 	regexStroke := regexp.MustCompile(`~~.+?~~`)
 
 	for _, line := range inputLines {
-		convertedStrongs := regexStrong.ReplaceAllStringFunc(line, func(n string) string {
-			return `<strong>` + n[2:len(n)-2] + `</strong>`
+		convertedStrongs := regexStrong.ReplaceAllStringFunc(line, func(text string) string {
+			return `<strong>` + utils.CutStringFromBoth(text, 2, 2) + `</strong>`
 		})
 
-		convertedItalics := regexItalic.ReplaceAllStringFunc(convertedStrongs, func(n string) string {
-			return `<em>` + n[1:len(n)-1] + `</em>`
+		convertedItalics := regexItalic.ReplaceAllStringFunc(convertedStrongs, func(text string) string {
+			return `<em>` + utils.CutStringFromBoth(text, 1, 1) + `</em>`
 		})
 
-		convertedStrokes := regexStroke.ReplaceAllStringFunc(convertedItalics, func(n string) string {
-			return `<del>` + n[2:len(n)-2] + `</del>`
+		convertedStrokes := regexStroke.ReplaceAllStringFunc(convertedItalics, func(text string) string {
+			return `<del>` + utils.CutStringFromBoth(text, 2, 2) + `</del>`
 		})
 
 		resultLines = append(resultLines, convertedStrokes)

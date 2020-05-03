@@ -14,6 +14,12 @@ Combined emphasis with **asterisks and _underscores_**.
 
 Strikethrough uses two tildes. ~~Scratch this.~~
 
+1. qwert
+1. 234
+2. 2343253252355235
+⋅⋅2. 3234
+5. 23234234
+
 1. First ordered list item
 2. Another item
 ⋅⋅* Unordered sub-list. 

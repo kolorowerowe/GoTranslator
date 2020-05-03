@@ -11,3 +11,11 @@ func MarkdownToHtmlName(inputName string) string {
 
 	return outputName
 }
+
+func CutStringFromBeginning(text string, fromBeginnning int) string {
+	return CutStringFromBoth(text, fromBeginnning, 0)
+}
+
+func CutStringFromBoth(text string, fromBeginning int, fromEnd int) string {
+	return text[fromBeginning : len(text)-fromEnd]
+}
