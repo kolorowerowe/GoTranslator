@@ -21,6 +21,10 @@ func ReadFile(path string) string {
 
 func SaveFile(name string, content string, shouldOpenExplorerCheckbox bool, shouldOpenBrowser bool) {
 	message := []byte(content)
+
+	// create directory if not exists
+	_ = os.Mkdir("result/", os.ModePerm)
+
 	err := ioutil.WriteFile("result/"+name, message, 0644)
 	if err != nil {
 		log.Print("Cannot save file: ", err)

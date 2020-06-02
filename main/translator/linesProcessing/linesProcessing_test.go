@@ -20,7 +20,8 @@ func Test_addLinks(t *testing.T) {
 		},
 	}
 
-	got := AddLinks(lineTests.input)
+	referencesMap := make(map[string]ReferencesInfo)
+	got := AddLinks(lineTests.input, referencesMap)
 
 	if len(got) != len(lineTests.wanted) {
 		t.Errorf("different count of lines, received = %v, expected =  %v", len(got), len(lineTests.wanted))
