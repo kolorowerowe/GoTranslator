@@ -40,7 +40,10 @@ func SaveFile(name string, content string, shouldOpenExplorerCheckbox bool, shou
 }
 
 func openExplorer(url string) {
-	_ = exec.Command(`explorer`, `/select,`, url).Run()
+	err := exec.Command(`explorer`, `/select,`, url).Run()
+	if(err != nil) {
+		log.Fatal(err)
+	}
 }
 
 func openBrowser(url string) {
