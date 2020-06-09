@@ -16,6 +16,7 @@ func Translate(content string, fileName string) string {
 	lines = linesProcessing.AddParagraphs(lines)
 	lines = linesProcessing.AddHeaders(lines)
 
+	lines = linesProcessing.AddHorizontalRules(lines)
 	lines = linesProcessing.AddInlineCode(lines)
 	lines = linesProcessing.AddEmphasis(lines)
 
