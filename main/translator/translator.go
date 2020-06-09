@@ -12,6 +12,7 @@ func Translate(content string, fileName string) string {
 
 	lines, referencesMap := linesProcessing.ExtractReferences(lines)
 
+	lines = linesProcessing.AddLists(lines)
 	lines = linesProcessing.AddParagraphs(lines)
 	lines = linesProcessing.AddHeaders(lines)
 
